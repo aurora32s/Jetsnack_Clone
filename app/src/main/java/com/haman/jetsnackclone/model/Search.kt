@@ -1,6 +1,9 @@
 package com.haman.jetsnackclone.model
 
 import androidx.compose.runtime.Immutable
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.withContext
 
 /**
  * fake search repo
@@ -8,6 +11,11 @@ import androidx.compose.runtime.Immutable
 object SearchRepo {
     fun getCategories() = searchCategoryCollections
     fun getSuggestions() = searchSuggestions
+
+    suspend fun search(query: String): List<Snack> = withContext(Dispatchers.Default) {
+        delay(200L)
+        snacks.filter { it.name.contains(query, ignoreCase = false) }
+    }
 }
 
 /**
