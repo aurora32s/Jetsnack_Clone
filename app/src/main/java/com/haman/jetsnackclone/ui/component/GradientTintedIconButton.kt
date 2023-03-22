@@ -39,7 +39,7 @@ fun JetsnackGradientTintedIconButton(
         colors = colors,
         shape = CircleShape
     )
-    val pressed = false
+    val pressed by interactionSource.collectIsPressedAsState()
     val background = if (pressed) {
         Modifier.offsetGradientBackground(colors, 200f, 0f)
     } else {
