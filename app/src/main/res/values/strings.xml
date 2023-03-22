@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">JetsnackClone</string>
+    
+    <!-- Filters -->
+    <string name="label_filters">Filters</string>
 </resources>
