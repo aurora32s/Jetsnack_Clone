@@ -43,7 +43,7 @@ fun FilterChip(
     )
 
     JetsnackSurface(
-        modifier = modifier.height(28.dp),
+        modifier = modifier,
         color = backgroundColor,
         contentColor = textColor,
         shape = shape,
