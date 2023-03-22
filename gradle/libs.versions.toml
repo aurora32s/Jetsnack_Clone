@@ -1,0 +1,39 @@
+[versions]
+accompanist = "0.28.0"
+androidx-activity-compose = "1.6.1"
+androidx-constraintlayout = "1.0.1"
+androidx-corektx = "1.9.0"
+androidx-lifecycle-runtime-compose = "2.6.0-alpha03"
+androidx-navigation = "2.5.3"
+coil = "2.2.0"
+composeUi = "1.1.1"
+coroutines = "1.6.4"
+kotlin = "1.6.0"
+minSdk = "26"
+targetSdk = "33"
+
+[libraries]
+kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib-jdk8", version.ref = "kotlin" }
+kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
+
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidx-corektx" }
+androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidx-activity-compose" }
+androidx-lifecycle-runtime-compose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidx-lifecycle-runtime-compose" }
+androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "androidx-navigation" }
+androidx-constraintlayout-compose = { group = "androidx.constraintlayout", name = "constraintlayout-compose", version.ref = "androidx-constraintlayout" }
+
+androidx-compose-runtime = { group = "androidx.compose.runtime", name = "runtime", version.ref = "composeUi" }
+androidx-compose-foundation = { group = "androidx.compose.foundation", name = "foundation", version.ref = "composeUi" }
+androidx-compose-foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout", version.ref = "composeUi" }
+
+androidx-compose-ui-util = { group = "androidx.compose.ui", name = "ui-util", version.ref = "composeUi" }
+androidx-compose-material = { group = "androidx.compose.material", name = "material", version.ref = "composeUi" }
+androidx-compose-animation = { group = "androidx.compose.animation", name = "animation", version.ref = "composeUi" }
+androidx-compose-material-iconsExtended = { group = "androidx.compose.material", name = "material-icons-extended", version.ref = "composeUi" }
+androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview", version.ref = "composeUi" }
+androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling", version.ref = "composeUi" }
+
+accompanist-flowlayout = { group = "com.google.accompanist", name = "accompanist-flowlayout", version.ref = "accompanist" }
+accompanist-systemuicontroller = { group = "com.google.accompanist", name = "accompanist-systemuicontroller", version.ref = "accompanist" }
+
+coil-kt-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
