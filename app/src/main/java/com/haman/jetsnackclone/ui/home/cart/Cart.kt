@@ -2,30 +2,31 @@ package com.haman.jetsnackclone.ui.home.cart
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.remember
+import androidx.compose.material.icons.filled.DeleteForever
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ChainStyle
 import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.haman.jetsnackclone.R
 import com.haman.jetsnackclone.model.OrderLine
 import com.haman.jetsnackclone.model.SnackCollection
@@ -33,15 +34,16 @@ import com.haman.jetsnackclone.model.SnackRepo
 import com.haman.jetsnackclone.model.SnackbarManager
 import com.haman.jetsnackclone.ui.component.*
 import com.haman.jetsnackclone.ui.home.DestinationBar
+import com.haman.jetsnackclone.ui.theme.AlphaNearOpaque
 import com.haman.jetsnackclone.ui.theme.JetsnackCloneTheme
 import com.haman.jetsnackclone.ui.theme.JetsnackTheme
 
 @Composable
 fun Cart(
     onSnackClick: (Long) -> Unit,
-    modifier: Modifier = Modifier,
-    viewModel: CartViewModel = CartViewModel(SnackbarManager, SnackRepo)
+    modifier: Modifier = Modifier
 ) {
+    val viewModel = remember { CartViewModel(SnackbarManager, SnackRepo) }
     val orderLines = viewModel.orderLines.collectAsState()
     val inspiredByCart = remember { SnackRepo.getInspiredByCart() }
     Cart(
@@ -76,9 +78,12 @@ fun Cart(
                 onSnackClick = onSnackClick
             )
             DestinationBar(modifier = Modifier.align(Alignment.TopCenter))
+            CheckoutBar(modifier = Modifier.align(Alignment.BottomCenter))
         }
     }
 }
+
+private fun <T> swipeAnimationSpec() = tween<T>(durationMillis = 1000, easing = LinearEasing)
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
@@ -122,10 +127,60 @@ private fun CartContent(
                 background = { offsetX ->
                     /*Background color changes from light gray to red when the
                     swipe to delete with exceeds 160.dp*/
-                    val backgroundColor = if (offsetX < -(160.dp)) {
-                        JetsnackTheme.colors.error
-                    } else {
-                        JetsnackTheme.colors.uiFloated
+                    // TODO 더 자연스럽게 변경되도록 animation 으로 수정
+                    val backgroundColor by animateFloatAsState(
+                        if (offsetX < -(160.dp)) 1f else 0.1f,
+                        animationSpec = swipeAnimationSpec()
+                    )
+
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(JetsnackTheme.colors.error.copy(alpha = backgroundColor)),
+                        horizontalAlignment = Alignment.End,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        val newHeight = (offsetX + 8.dp) * -1
+                        Box(
+                            modifier = Modifier
+                                .width(offsetX * -1)
+                                .height(newHeight)
+                                .background(JetsnackTheme.colors.error),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            if (offsetX > -(140.dp)) {
+                                val iconAlpha: Float by animateFloatAsState(
+                                    if (offsetX < - (120.dp)) 0f else 1f,
+                                    animationSpec = swipeAnimationSpec()
+                                )
+
+                                Icon(
+                                    imageVector = Icons.Filled.DeleteForever,
+                                    modifier = Modifier
+                                        .size(16.dp)
+                                        .graphicsLayer(alpha = iconAlpha),
+                                    tint = JetsnackTheme.colors.uiBackground,
+                                    contentDescription = null,
+                                )
+                            }
+
+                            if (offsetX < -(90.dp)) {
+                                val textAlpha by animateFloatAsState(
+                                    if (offsetX < -(120.dp)) 1f else 0f,
+                                    animationSpec = swipeAnimationSpec()
+                                )
+                                Text(
+                                    text = stringResource(id = R.string.remove_item),
+                                    style = MaterialTheme.typography.subtitle2,
+                                    color = JetsnackTheme.colors.uiBackground,
+                                    textAlign = TextAlign.Center,
+                                    modifier = Modifier
+                                        .graphicsLayer(
+                                            alpha = textAlpha
+                                        )
+                                )
+                            }
+                        }
                     }
                 },
             ) {
@@ -258,6 +313,32 @@ fun CartItem(
                 top.linkTo(parent.bottom)
             }
         )
+    }
+}
+
+@Composable
+private fun CheckoutBar(modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier.background(JetsnackTheme.colors.uiBackground.copy(alpha = AlphaNearOpaque))
+    ) {
+        JetsnackDivider()
+        Row {
+            Spacer(modifier = Modifier.weight(1f))
+            JetsnackButton(
+                onClick = { /*TODO*/ },
+                shape = RectangleShape,
+                modifier = Modifier
+                    .padding(horizontal = 12.dp, vertical = 8.dp)
+                    .weight(1f)
+            ) {
+                Text(
+                    text = stringResource(id = R.string.cart_checkout),
+                    modifier = Modifier.fillMaxWidth(),
+                    textAlign = TextAlign.Left,
+                    maxLines = 1
+                )
+            }
+        }
     }
 }
 
