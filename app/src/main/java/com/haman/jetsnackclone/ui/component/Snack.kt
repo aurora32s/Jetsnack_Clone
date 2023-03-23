@@ -48,7 +48,7 @@ private val gradientWidth
 fun SnackCollection(
     snackCollection: SnackCollection,
     onSnackClick: (Long) -> Unit,
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     index: Int,
     highlight: Boolean = true
 ) {
