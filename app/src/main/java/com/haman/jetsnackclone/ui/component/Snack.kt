@@ -49,7 +49,7 @@ fun SnackCollection(
     snackCollection: SnackCollection,
     onSnackClick: (Long) -> Unit,
     modifier: Modifier = Modifier,
-    index: Int,
+    index: Int = 0,
     highlight: Boolean = true
 ) {
     Column(modifier = modifier) {

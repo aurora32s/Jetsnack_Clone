@@ -43,4 +43,9 @@
     <string name="cart_increase_error">There was an error and the quantity couldn\'t be increased. Please try again.</string>
     <string name="cart_decrease_error">There was an error and the quantity couldn\'t be decreased. Please try again.</string>
     <string name="label_remove">Remove item</string>
+    <plurals name="cart_order_count">
+        <item quantity="one">%1d item</item>
+        <item quantity="other">%1d items</item>
+    </plurals>
+    <string name="cart_order_header">Order (%1s)</string>
 </resources>
