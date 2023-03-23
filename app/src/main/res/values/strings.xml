@@ -48,4 +48,6 @@
         <item quantity="other">%1d items</item>
     </plurals>
     <string name="cart_order_header">Order (%1s)</string>
+    <string name="cart_checkout">Checkout</string>
+    <string name="remove_item">Remove Item</string>
 </resources>
