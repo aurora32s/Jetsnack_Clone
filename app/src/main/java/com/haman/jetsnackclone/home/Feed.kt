@@ -51,6 +51,7 @@ fun Feed(
                 filters = filters,
                 onSnackClick = onSnackClick
             )
+            DestinationBar()
         }
     }
 }
@@ -89,7 +90,7 @@ private fun SnackCollectionList(
     }
 
     AnimatedVisibility(
-        visible = true,
+        visible = filterVisible.value,
         enter = slideInVertically() + expandVertically(expandFrom = Alignment.Top) + fadeIn(
             initialAlpha = 0.3f
         ),
