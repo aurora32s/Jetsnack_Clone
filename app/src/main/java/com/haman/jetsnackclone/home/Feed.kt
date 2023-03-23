@@ -1,4 +1,4 @@
-package com.haman.jetsnackclone.ui.home
+package com.haman.jetsnackclone.home
 
 import android.content.res.Configuration
 import androidx.compose.animation.*
