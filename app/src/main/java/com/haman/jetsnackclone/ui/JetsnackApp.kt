@@ -9,7 +9,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.navigation
 import com.haman.jetsnackclone.ui.component.JetsnackScaffold
 import com.haman.jetsnackclone.ui.home.HomeSections
-import com.haman.jetsnackclone.ui.home.JetsnackBottomBar
 import com.haman.jetsnackclone.ui.home.addHomeGraph
 import com.haman.jetsnackclone.ui.theme.JetsnackCloneTheme
 
@@ -18,15 +17,7 @@ fun JetsnackApp() {
     JetsnackCloneTheme {
         val appState = rememberJetsnackAppState()
         JetsnackScaffold(
-            bottomBar = {
-                if (appState.shouldShowBottomBar) {
-                    JetsnackBottomBar(
-                        tabs = appState.bottomBarTabs,
-                        currentRoute = appState.currentRoute!!,
-                        navigateToRoute = appState::navigateToBottomBarRoute
-                    )
-                }
-            },
+            bottomBar = {},
             snackbarHost = {},
             scaffoldState = appState.scaffoldState
         ) { innerPadding ->
