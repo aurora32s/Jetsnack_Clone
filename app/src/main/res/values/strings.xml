@@ -8,4 +8,12 @@
     <string name="quantity">Qty</string>
     <string name="label_increase">Increase</string>
     <string name="label_decrease">Decrease</string>
+
+    <!--FilterScreen -->
+    <string name="max_calories">Max Calories</string>
+    <string name="per_serving">per serving</string>
+    <string name="sort">Sort</string>
+    <string name="price">Price</string>
+    <string name="category">Category</string>
+    <string name="lifestyle">LifeStyle</string>
 </resources>

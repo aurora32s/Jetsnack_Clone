@@ -1,6 +1,7 @@
 package com.haman.jetsnackclone.home
 
 import android.content.res.Configuration
+import androidx.compose.animation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -8,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -84,6 +86,16 @@ private fun SnackCollectionList(
                 )
             }
         }
+    }
+
+    AnimatedVisibility(
+        visible = true,
+        enter = slideInVertically() + expandVertically(expandFrom = Alignment.Top) + fadeIn(
+            initialAlpha = 0.3f
+        ),
+        exit = slideOutVertically() + shrinkVertically() + fadeOut()
+    ) {
+        FilterScreen { filterVisible.value = false }
     }
 }
 
