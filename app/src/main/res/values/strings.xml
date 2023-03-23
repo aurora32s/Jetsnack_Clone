@@ -31,8 +31,11 @@
     <string name="grab_beverage">Grab a beverage and check back later!</string>
 
     <!-- Search -->
+    <string name="search_jetsnack">Search Jetsnack</string>
     <string name="search_no_matches">No matches for “%1s”</string>
     <string name="search_no_matches_retry">Try broadening your search</string>
     <string name="label_add">Add to cart</string>
     <string name="search_count">%1d items</string>
+    <string name="label_search">Perform search</string>
+    <string name="label_back">Back</string>
 </resources>
