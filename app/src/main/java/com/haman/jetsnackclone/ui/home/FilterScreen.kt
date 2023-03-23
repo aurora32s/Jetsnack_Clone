@@ -1,4 +1,4 @@
-package com.haman.jetsnackclone.home
+package com.haman.jetsnackclone.ui.home
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
