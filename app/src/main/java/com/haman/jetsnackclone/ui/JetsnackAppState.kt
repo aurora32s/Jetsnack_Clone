@@ -6,10 +6,7 @@ import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.*
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.Lifecycle
-import androidx.navigation.NavBackStackEntry
-import androidx.navigation.NavController
-import androidx.navigation.NavDestination
-import androidx.navigation.NavGraph
+import androidx.navigation.*
 import androidx.navigation.compose.rememberNavController
 import com.haman.jetsnackclone.model.SnackbarManager
 import kotlinx.coroutines.CoroutineScope
@@ -24,7 +21,7 @@ object MainDestinations {
 @Composable
 fun rememberJetsnackAppState(
     scaffoldState: ScaffoldState = rememberScaffoldState(),
-    navController: NavController = rememberNavController(),
+    navController: NavHostController = rememberNavController(),
     snackbarManager: SnackbarManager = SnackbarManager,
     resources: Resources = resources(),
     coroutineScope: CoroutineScope = rememberCoroutineScope()
@@ -35,7 +32,7 @@ fun rememberJetsnackAppState(
 @Stable
 class JetsnackAppState(
     val scaffoldState: ScaffoldState,
-    val navController: NavController,
+    val navController: NavHostController,
     private val snackbarManager: SnackbarManager,
     private val resources: Resources,
     coroutineScope: CoroutineScope
