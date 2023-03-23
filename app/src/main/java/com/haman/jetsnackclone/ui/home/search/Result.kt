@@ -164,7 +164,7 @@ fun SearchResult(
 }
 
 @Composable
-fun NoResult(
+fun NoResults(
     query: String,
     modifier: Modifier = Modifier
 ) {
@@ -200,7 +200,7 @@ fun NoResult(
 @Composable
 fun NoResultPreview() {
     JetsnackCloneTheme {
-        NoResult(query = "demo")
+        NoResults(query = "demo")
     }
 }
 
