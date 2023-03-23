@@ -1,7 +1,9 @@
 package com.haman.jetsnackclone.ui.home.cart
 
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.CreationExtras
 import com.haman.jetsnackclone.R
 import com.haman.jetsnackclone.model.OrderLine
 import com.haman.jetsnackclone.model.SnackRepo
@@ -56,13 +58,5 @@ class CartViewModel(
     }
 
     companion object {
-        fun provideFactory(
-            snackbarManager: SnackbarManager = SnackbarManager,
-            snackRepository: SnackRepo = SnackRepo
-        ): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return CartViewModel(snackbarManager, snackRepository) as T
-            }
-        }
     }
 }
