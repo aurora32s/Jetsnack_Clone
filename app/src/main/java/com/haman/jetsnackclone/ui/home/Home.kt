@@ -2,6 +2,7 @@ package com.haman.jetsnackclone.ui.home
 
 import androidx.annotation.FloatRange
 import androidx.annotation.StringRes
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationSpec
 import androidx.compose.animation.core.SpringSpec
@@ -92,17 +93,27 @@ fun JetsnackBottomBar(
         ) {
             tabs.forEach { tab ->
                 val selected = tab == currentSection
+                val tint by animateColorAsState(
+                    if (selected) {
+                        JetsnackTheme.colors.iconInteractive
+                    } else {
+                        JetsnackTheme.colors.iconInteractiveInactive
+                    }
+                )
+
                 val text = stringResource(id = tab.title)
                 JetsnackBottomNavItem(
                     icon = {
                         Icon(
                             imageVector = tab.icon,
+                            tint = tint,
                             contentDescription = text
                         )
                     },
                     text = {
                         Text(
                             text = text,
+                            color = tint,
                             style = MaterialTheme.typography.button,
                             maxLines = 1
                         )
@@ -328,7 +339,7 @@ private fun JetsnackBottomNavPreview() {
     JetsnackCloneTheme {
         JetsnackBottomBar(
             tabs = HomeSections.values(),
-            currentRoute = "home/search",
+            currentRoute = "home/feed",
             navigateToRoute = { }
         )
     }
