@@ -29,4 +29,10 @@
     <!-- Profile -->
     <string name="work_in_progress">This is currently work in progress</string>
     <string name="grab_beverage">Grab a beverage and check back later!</string>
+
+    <!-- Search -->
+    <string name="search_no_matches">No matches for “%1s”</string>
+    <string name="search_no_matches_retry">Try broadening your search</string>
+    <string name="label_add">Add to cart</string>
+    <string name="search_count">%1d items</string>
 </resources>
