@@ -10,6 +10,9 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AccountCircle
 import androidx.compose.material.icons.outlined.Home
@@ -20,12 +23,15 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.*
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
@@ -34,6 +40,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.haman.jetsnackclone.R
 import com.haman.jetsnackclone.ui.component.JetsnackSurface
+import com.haman.jetsnackclone.ui.theme.JetsnackCloneTheme
 import com.haman.jetsnackclone.ui.theme.JetsnackTheme
 
 fun NavGraphBuilder.addHomeGraph(
@@ -71,11 +78,43 @@ fun JetsnackBottomBar(
         color = color,
         contentColor = contentColor
     ) {
-        var springSpec = SpringSpec<Float>(
+        val springSpec = SpringSpec<Float>(
             stiffness = 800f,
             dampingRatio = 0.8f
         )
 
+        JetsnackBottomNavLayout(
+            selectedIndex = currentSection.ordinal,
+            itemCount = routes.size,
+            animSpec = springSpec,
+            indicator = { JetsnackBottomNavIndicator() },
+            modifier = Modifier.navigationBarsPadding()
+        ) {
+            tabs.forEach { tab ->
+                val selected = tab == currentSection
+                val text = stringResource(id = tab.title)
+                JetsnackBottomNavItem(
+                    icon = {
+                        Icon(
+                            imageVector = tab.icon,
+                            contentDescription = text
+                        )
+                    },
+                    text = {
+                        Text(
+                            text = text,
+                            style = MaterialTheme.typography.button,
+                            maxLines = 1
+                        )
+                    },
+                    selected = selected,
+                    onSelected = { navigateToRoute(tab.route) },
+                    animSpec = springSpec,
+                    modifier = bottomNavigationItemPadding
+                        .clip(bottomNavIndicatorShape)
+                )
+            }
+        }
     }
 }
 
@@ -280,4 +319,16 @@ private fun JetsnackBottomNavIndicator(
                 shape = shape
             )
     )
+}
+
+@Preview
+@Composable
+private fun JetsnackBottomNavPreview() {
+    JetsnackCloneTheme {
+        JetsnackBottomBar(
+            tabs = HomeSections.values(),
+            currentRoute = "home/search",
+            navigateToRoute = { }
+        )
+    }
 }
