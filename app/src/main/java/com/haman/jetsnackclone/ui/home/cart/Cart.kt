@@ -19,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.layout.LastBaseline
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -150,7 +151,7 @@ private fun CartContent(
                         ) {
                             if (offsetX > -(140.dp)) {
                                 val iconAlpha: Float by animateFloatAsState(
-                                    if (offsetX < - (120.dp)) 0f else 1f,
+                                    if (offsetX < -(120.dp)) 0f else 1f,
                                     animationSpec = swipeAnimationSpec()
                                 )
 
@@ -194,6 +195,14 @@ private fun CartContent(
             }
         }
         item {
+            SummaryItem(
+                subtotal = orderLines.fold(0) { acc, orderLine ->
+                    acc + (orderLine.snack.price * orderLine.count)
+                },
+                shippingCosts = 369
+            )
+        }
+        item {
             SnackCollection(
                 snackCollection = inspiredByCart,
                 onSnackClick = onSnackClick,
@@ -201,6 +210,76 @@ private fun CartContent(
             )
             Spacer(Modifier.height(56.dp))
         }
+    }
+}
+
+@Composable
+fun SummaryItem(
+    subtotal: Long,
+    shippingCosts: Long,
+    modifier: Modifier = Modifier
+) {
+    Column(modifier) {
+        Text(
+            text = stringResource(R.string.cart_summary_header),
+            style = MaterialTheme.typography.h6,
+            color = JetsnackTheme.colors.brand,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            modifier = Modifier
+                .padding(horizontal = 24.dp)
+                .heightIn(min = 56.dp)
+                .wrapContentHeight()
+        )
+        Row(modifier = Modifier.padding(horizontal = 24.dp)) {
+            Text(
+                text = stringResource(R.string.cart_subtotal_label),
+                style = MaterialTheme.typography.body1,
+                modifier = Modifier
+                    .weight(1f)
+                    .wrapContentWidth(Alignment.Start)
+                    .alignBy(LastBaseline)
+            )
+            Text(
+                text = subtotal.toString(),
+                style = MaterialTheme.typography.body1,
+                modifier = Modifier.alignBy(LastBaseline)
+            )
+        }
+        Row(modifier = Modifier.padding(horizontal = 24.dp, vertical = 8.dp)) {
+            Text(
+                text = stringResource(R.string.cart_shipping_label),
+                style = MaterialTheme.typography.body1,
+                modifier = Modifier
+                    .weight(1f)
+                    .wrapContentWidth(Alignment.Start)
+                    .alignBy(LastBaseline)
+            )
+            Text(
+                text = shippingCosts.toString(),
+                style = MaterialTheme.typography.body1,
+                modifier = Modifier.alignBy(LastBaseline)
+            )
+        }
+        Spacer(modifier = Modifier.height(8.dp))
+        JetsnackDivider()
+        Row(modifier = Modifier.padding(horizontal = 24.dp, vertical = 8.dp)) {
+            Text(
+                text = stringResource(R.string.cart_total_label),
+                style = MaterialTheme.typography.body1,
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(end = 16.dp)
+                    .wrapContentWidth(Alignment.End)
+                    .alignBy(LastBaseline)
+            )
+            Text(
+                text = (subtotal + shippingCosts).toString(),
+                style = MaterialTheme.typography.subtitle1,
+                modifier = Modifier.alignBy(LastBaseline)
+            )
+        }
+        JetsnackDivider()
     }
 }
 
