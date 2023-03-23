@@ -50,4 +50,8 @@
     <string name="cart_order_header">Order (%1s)</string>
     <string name="cart_checkout">Checkout</string>
     <string name="remove_item">Remove Item</string>
+    <string name="cart_summary_header">Summary</string>
+    <string name="cart_subtotal_label">Subtotal</string>
+    <string name="cart_shipping_label">Shipping &amp; Handling</string>
+    <string name="cart_total_label">Total</string>
 </resources>
