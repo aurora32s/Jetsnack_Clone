@@ -25,4 +25,8 @@
     <string name="home_search">Search</string>
     <string name="home_cart">My Cart</string>
     <string name="home_profile">Profile</string>
+
+    <!-- Profile -->
+    <string name="work_in_progress">This is currently work in progress</string>
+    <string name="grab_beverage">Grab a beverage and check back later!</string>
 </resources>

@@ -51,6 +51,7 @@ fun NavGraphBuilder.addHomeGraph(
     composable(HomeSections.FEED.route) { from ->
         Feed(onSnackClick = { id -> onSnackSelected(id, from) }, modifier = modifier)
     }
+    composable(HomeSections.PROFILE.route) { Profile() }
 }
 
 enum class HomeSections(
