@@ -147,7 +147,7 @@ private fun JetsnackBottomNavLayout(
     }
 
     Layout(
-        modifier = modifier.height(BottomNavHeight),
+        modifier = modifier,
         content = {
             content()
             Box(
@@ -200,7 +200,6 @@ private fun JetsnackBottomNavLayout(
     }
 }
 
-private val BottomNavHeight = 56.dp
 private val TextIconSpacing = 2.dp
 private val BottomNavLabelTransformOrigin = TransformOrigin(0f, 0.5f)
 
