@@ -16,4 +16,7 @@
     <string name="price">Price</string>
     <string name="category">Category</string>
     <string name="lifestyle">LifeStyle</string>
+
+    <!-- DestinationBar -->
+    <string name="label_select_delivery">Select delivery address</string>
 </resources>
