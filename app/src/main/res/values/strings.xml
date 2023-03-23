@@ -38,4 +38,9 @@
     <string name="search_count">%1d items</string>
     <string name="label_search">Perform search</string>
     <string name="label_back">Back</string>
+
+    <!-- Cart -->
+    <string name="cart_increase_error">There was an error and the quantity couldn\'t be increased. Please try again.</string>
+    <string name="cart_decrease_error">There was an error and the quantity couldn\'t be decreased. Please try again.</string>
+    <string name="label_remove">Remove item</string>
 </resources>
