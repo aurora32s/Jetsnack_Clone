@@ -6,9 +6,14 @@ import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.*
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.Lifecycle
-import androidx.navigation.*
+import androidx.navigation.NavBackStackEntry
+import androidx.navigation.NavDestination
+import androidx.navigation.NavGraph
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.haman.jetsnackclone.model.SnackbarManager
+import com.haman.jetsnackclone.ui.home.HomeSections
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -52,6 +57,13 @@ class JetsnackAppState(
             }
         }
     }
+
+    val bottomBarTabs = HomeSections.values()
+    private val bottomBarRoutes = bottomBarTabs.map { it.route }
+
+    val shouldShowBottomBar: Boolean
+        @Composable get() = navController
+            .currentBackStackEntryAsState().value?.destination?.route in bottomBarRoutes
 
     val currentRoute: String?
         get() = navController.currentDestination?.route
