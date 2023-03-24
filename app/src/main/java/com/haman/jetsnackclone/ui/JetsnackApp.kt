@@ -3,14 +3,14 @@ package com.haman.jetsnackclone.ui
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavBackStackEntry
-import androidx.navigation.NavGraphBuilder
+import androidx.navigation.*
 import androidx.navigation.compose.NavHost
-import androidx.navigation.navigation
+import androidx.navigation.compose.composable
 import com.haman.jetsnackclone.ui.component.JetsnackScaffold
 import com.haman.jetsnackclone.ui.home.HomeSections
 import com.haman.jetsnackclone.ui.home.JetsnackBottomBar
 import com.haman.jetsnackclone.ui.home.addHomeGraph
+import com.haman.jetsnackclone.ui.snackdetail.SnackDetail
 import com.haman.jetsnackclone.ui.theme.JetsnackCloneTheme
 
 @Composable
@@ -53,5 +53,17 @@ private fun NavGraphBuilder.jetsnackNavGraph(
         startDestination = HomeSections.FEED.route
     ) {
         addHomeGraph(onSnackSelected)
+    }
+
+    composable(
+        route = "${MainDestinations.SNACK_DETAIL_ROUTE}/{${MainDestinations.SNACK_ID_KEY}}",
+        arguments = listOf(navArgument(MainDestinations.SNACK_ID_KEY) { type = NavType.LongType })
+    ) { navBackStackEntry ->
+        val snackId =
+            requireNotNull(navBackStackEntry.arguments).getLong(MainDestinations.SNACK_ID_KEY)
+        SnackDetail(
+            snackId = snackId,
+            upPress = upPress
+        )
     }
 }
